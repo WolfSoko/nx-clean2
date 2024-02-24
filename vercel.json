@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/index.mjs": {
-      "includeFiles": "dist/apps/nx-clean2/**"
+      "includeFiles": "dist/**"
     }
   }
 }
