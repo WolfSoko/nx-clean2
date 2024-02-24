@@ -1,0 +1,4 @@
+p {
+  color: cadetblue;
+  background-color: color-mix(in lab, currentColor, white 80%);
+}
