@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices, ReporterDescription } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 
 import { workspaceRoot } from '@nx/devkit';
@@ -12,11 +12,13 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
  */
 // require('dotenv').config();
 
+const nxBaseConfig = nxE2EPreset(__filename, { testDir: './src' });
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  ...nxE2EPreset(__filename, { testDir: './src' }),
+  ...nxBaseConfig,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
@@ -27,9 +29,14 @@ export default defineConfig({
   webServer: {
     command: 'npx nx serve nx-clean2',
     url: 'http://localhost:4200',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: !process.env['CI'],
     cwd: workspaceRoot,
   },
+  reporter: [
+    ...(nxBaseConfig.reporter as ReporterDescription[]),
+    ['list'],
+    [process.env['CI'] ? 'github' : 'line'] as ReporterDescription,
+  ],
   projects: [
     {
       name: 'chromium',
@@ -47,23 +54,23 @@ export default defineConfig({
     },
 
     // Uncomment for mobile browsers support
-    /* {
+    {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
     },
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
-    }, */
+    },
 
     // Uncomment for branded browsers
-    /* {
+    {
       name: 'Microsoft Edge',
       use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
     {
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    } */
+    },
   ],
 });
