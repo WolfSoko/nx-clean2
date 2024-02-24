@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UtilsComponent } from '@clean-nx/utils';
+import { UtilsComponent } from './utils.component';
 
 describe('UtilsComponent', () => {
   let component: UtilsComponent;
