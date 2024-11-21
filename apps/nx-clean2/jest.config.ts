@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'nx-clean2',
   preset: '../../jest.preset.js',
