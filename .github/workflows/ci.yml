@@ -10,9 +10,6 @@ permissions:
   actions: read
   contents: read
 
-env:
-  NX_CLOUD_INPUT_paths: '/home/workflows/.npm'
-
 jobs:
   main:
     runs-on: ubuntu-latest
